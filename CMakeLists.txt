@@ -1,6 +1,22 @@
 cmake_minimum_required(VERSION 2.6)
 project(game_of_lifesdl)
 
-add_executable(game_of_lifesdl main.cpp)
+find_package(SDL2 REQUIRED)
 
-install(TARGETS game_of_lifesdl RUNTIME DESTINATION bin)
+
+
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
+
+
+
+find_package(SDL2_image REQUIRED)
+include_directories(${SDL2_INCLUDE_DIRS} ${SDL2_IMAGE_INCLUDE_DIRS})
+
+
+
+add_executable(gameoflife main.cpp board.cpp)
+
+set(SDL2_LIBRARIES "-L${SDL2_LIBDIR} -lSDL2")
+target_link_libraries(gameoflife ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES})
+
+# install(TARGETS game_of_lifesdl RUNTIME DESTINATION bin)
